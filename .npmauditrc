@@ -1,0 +1,4 @@
+{
+    "minVulnerability": "critical",
+    "vulnerabilitiesToSkip": [345]
+}
