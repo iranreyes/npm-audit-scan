@@ -38,10 +38,12 @@ exec('npm audit --json=true', function(error, stdout, stderr) {
       VULNERABILITY_LEVEL.forEach(function(value, index) {
         if (index >= minVulnerabilityIndex && auditOutput.metadata.vulnerabilities[value] > 0) {
           foundVulnerabilities[value] = auditOutput.metadata.vulnerabilities[value];
+          // TODO: Filter vulnerabilities in the skip array
         }
       });
 
       if (Object.keys(foundVulnerabilities).length > 0) {
+        console.log('Found vulnerabilities, run `npm audit` for more details');
         console.log(foundVulnerabilities);
         process.exit(1);
         return;
@@ -53,9 +55,6 @@ exec('npm audit --json=true', function(error, stdout, stderr) {
       console.error('Invalid output');
       return;
     }
-  } else {
-    console.error('Invalid output');
-    return;
   }
 
   if (error !== null) {
